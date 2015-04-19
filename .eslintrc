@@ -1,0 +1,12 @@
+{
+    "ecmaFeatures": {
+        "blockBindings": true,
+        "jsx": true,
+        "classes": true,
+        "arrowFunctions": true,
+        "sourceType": "module"
+    },
+    "rules": {
+        "quotes": [2, "single"]
+    }
+}

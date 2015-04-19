@@ -1,0 +1,53 @@
+{
+  "name": "portfolio-react",
+  "version": "0.1.0",
+  "description": "Portfolio remade in ReactJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blurrah/portfolio-react.git"
+  },
+  "keywords": [
+    "reactjs",
+    "react",
+    "portfolio",
+    "browserify",
+    "gulp",
+    "babel"
+  ],
+  "author": "Boris Besemer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blurrah/portfolio-react/issues"
+  },
+  "homepage": "https://github.com/blurrah/portfolio-react",
+  "devDependencies": {
+    "babelify": "^5.0.5",
+    "body-parser": "^1.12.0",
+    "browserify": "^8.1.1",
+    "express": "^4.11.2",
+    "gulp": "^3.8.10",
+    "gulp-autoprefixer": "^2.1.0",
+    "gulp-plumber": "^0.6.6",
+    "gulp-sass": "^1.3.3",
+    "gulp-sourcemaps": "^1.3.0",
+    "mongoose": "^3.8.23",
+    "node-sass": "^2.0.1",
+    "vinyl-source-stream": "^1.0.0"
+  },
+  "dependencies": {
+    "alt": "^0.13.2",
+    "lodash": "^3.3.1",
+    "react": "^0.13.1",
+    "react-router": "^0.13.1",
+    "superagent": "^0.21.0"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  }
+}
