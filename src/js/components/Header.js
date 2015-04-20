@@ -7,13 +7,17 @@ export default class Header extends React.Component {
 
 	render() {
 		return (
-			<nav>
-				<ul>
-					<li className="menu-item"><a href="/">Home</a></li>
-					<li className="menu-item"><a href="/about">Portfolio</a></li>
-					<li className="menu-item"><a href="#">Github</a></li>
-				</ul>
-			</nav>
+			<header>
+				<nav className="navbar navbar-default" role="navigation">
+					<div className="container">
+						<ul className="nav navbar-nav">
+							<li><a href="/">Home</a></li>
+							<li><a href="/about">About</a></li>
+							<li><a href="http://github.com/blurrah">Github</a></li>
+						</ul>
+					</div>
+				</nav>
+			</header>
 		);
 	}
 }

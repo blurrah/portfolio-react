@@ -49,7 +49,7 @@ gulp.task('scss', function() {
 						.pipe(sourcemaps.init())
 						.pipe(sass())
 						.pipe(autoprefixer({browsers: ['last 2 version']}))
-						.pipe(gulp.dest('dist/css/style.css'));
+						.pipe(gulp.dest('dist/css'));
 });
 
 gulp.task('watch', ['build'], function(callback) {

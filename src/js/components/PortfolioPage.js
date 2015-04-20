@@ -1,6 +1,7 @@
 import React from 'react';
 import PortfolioStore from '../stores/PortfolioStore';
 import PortfolioActions from '../actions/PortfolioActions';
+import PortfolioItem from './PortfolioItem';
 
 function _getStateFromStores() {
 	return PortfolioStore.getState();
@@ -30,12 +31,11 @@ export default class PortfolioPage extends React.Component {
 
     render() {
         let portfolioItems = this.state.items.map(function(value, index) {
-				return <li key={value.id}><a href={'/item/' + value.permalink}>{value.title} - {value.description.short}</a></li>;
+            return <PortfolioItem key={value.id} item={value} />;
 		});
 
         return (
             <div>
-                <h3>PortfolioPage component</h3>
                 <ul>
                     {portfolioItems}
                 </ul>

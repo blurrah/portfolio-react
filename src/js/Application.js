@@ -40,7 +40,6 @@ export default class Application extends React.Component {
 		return (
 			<div>
 				<Header />
-				<h1>{this.state.title}</h1>
 				<RouteHandler />
 			</div>
 		);
