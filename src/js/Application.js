@@ -17,19 +17,15 @@ export default class Application extends React.Component {
 	}
 
 	componentWillMount() {
-		PortfolioStore.listen(this.onChange);
-	}
-
-	componentDidMount() {
-		PortfolioActions.fillItems();
+		PortfolioStore.listen(this.onChange.bind(this));
 	}
 
 	componentWillUnmount() {
-		PortfolioStore.unlisten(this.onChange);
+		PortfolioStore.unlisten(this.onChange.bind(this));
 	}
 
 	onChange() {
-		this.setState(_getStateFromStores());
+		this.setState(_getStateFromStores);
 	}
 
 	_changeTitle() {
@@ -41,20 +37,11 @@ export default class Application extends React.Component {
 	}
 
 	render() {
-		let mappedItems = this.state.items.map(function(value, index) {
-				return <li key={value.id}>{value.title}</li>;
-		});
-
 		return (
 			<div>
 				<Header />
 				<h1>{this.state.title}</h1>
 				<RouteHandler />
-				<p>Dit is de site van Boris, echt waar!</p>
-				<a onClick={this._addItem}>Add item</a>
-				<ul>
-					{mappedItems}
-				</ul>
 			</div>
 		);
 	}

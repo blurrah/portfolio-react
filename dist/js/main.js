@@ -7,13 +7,17 @@ var React = _interopRequire(require("react"));
 
 var router = _interopRequire(require("./router/router"));
 
+var PortfolioWebAPIUtils = _interopRequire(require("./utils/PortfolioWebAPIUtils"));
+
+PortfolioWebAPIUtils.getAllItems();
+
 router.run(function (Handler, state) {
 	React.render(React.createElement(Handler, state), document.body);
 });
 
 // React.render(<Application />, document.body);
 
-},{"./router/router":215,"react":205}],2:[function(require,module,exports){
+},{"./router/router":216,"./utils/PortfolioWebAPIUtils":219,"react":205}],2:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -4916,7 +4920,9 @@ var isUnitlessNumber = {
   columnCount: true,
   flex: true,
   flexGrow: true,
+  flexPositive: true,
   flexShrink: true,
+  flexNegative: true,
   fontWeight: true,
   lineClamp: true,
   lineHeight: true,
@@ -4929,7 +4935,9 @@ var isUnitlessNumber = {
 
   // SVG-related properties
   fillOpacity: true,
-  strokeOpacity: true
+  strokeDashoffset: true,
+  strokeOpacity: true,
+  strokeWidth: true
 };
 
 /**
@@ -8016,6 +8024,7 @@ var HTMLDOMPropertyConfig = {
     headers: null,
     height: MUST_USE_ATTRIBUTE,
     hidden: MUST_USE_ATTRIBUTE | HAS_BOOLEAN_VALUE,
+    high: null,
     href: null,
     hrefLang: null,
     htmlFor: null,
@@ -8026,6 +8035,7 @@ var HTMLDOMPropertyConfig = {
     lang: null,
     list: MUST_USE_ATTRIBUTE,
     loop: MUST_USE_PROPERTY | HAS_BOOLEAN_VALUE,
+    low: null,
     manifest: MUST_USE_ATTRIBUTE,
     marginHeight: null,
     marginWidth: null,
@@ -8040,6 +8050,7 @@ var HTMLDOMPropertyConfig = {
     name: null,
     noValidate: HAS_BOOLEAN_VALUE,
     open: HAS_BOOLEAN_VALUE,
+    optimum: null,
     pattern: null,
     placeholder: null,
     poster: null,
@@ -8053,6 +8064,7 @@ var HTMLDOMPropertyConfig = {
     rowSpan: null,
     sandbox: null,
     scope: null,
+    scoped: HAS_BOOLEAN_VALUE,
     scrolling: null,
     seamless: MUST_USE_ATTRIBUTE | HAS_BOOLEAN_VALUE,
     selected: MUST_USE_PROPERTY | HAS_BOOLEAN_VALUE,
@@ -8094,7 +8106,9 @@ var HTMLDOMPropertyConfig = {
     itemID: MUST_USE_ATTRIBUTE,
     itemRef: MUST_USE_ATTRIBUTE,
     // property is supported for OpenGraph in meta tags.
-    property: null
+    property: null,
+    // IE-only attribute that controls focus behavior
+    unselectable: MUST_USE_ATTRIBUTE
   },
   DOMAttributeNames: {
     acceptCharset: 'accept-charset',
@@ -8704,7 +8718,7 @@ if ("production" !== process.env.NODE_ENV) {
   }
 }
 
-React.version = '0.13.1';
+React.version = '0.13.2';
 
 module.exports = React;
 
@@ -10742,6 +10756,14 @@ var ReactCompositeComponentMixin = {
         this.getName() || 'a component'
       ) : null);
       ("production" !== process.env.NODE_ENV ? warning(
+        !inst.getDefaultProps ||
+        inst.getDefaultProps.isReactClassApproved,
+        'getDefaultProps was defined on %s, a plain JavaScript class. ' +
+        'This is only supported for classes created using React.createClass. ' +
+        'Use a static property to define defaultProps instead.',
+        this.getName() || 'a component'
+      ) : null);
+      ("production" !== process.env.NODE_ENV ? warning(
         !inst.propTypes,
         'propTypes was defined as an instance property on %s. Use a static ' +
         'property to define propTypes instead.',
@@ -11310,7 +11332,7 @@ var ReactCompositeComponentMixin = {
         this._renderedComponent,
         thisID,
         transaction,
-        context
+        this._processChildContext(context)
       );
       this._replaceNodeWithMarkupByID(prevComponentID, nextMarkup);
     }
@@ -12184,6 +12206,8 @@ ReactDOMComponent.Mixin = {
       if (propKey === STYLE) {
         if (nextProp) {
           nextProp = this._previousStyleCopy = assign({}, nextProp);
+        } else {
+          this._previousStyleCopy = null;
         }
         if (lastProp) {
           // Unset styles on `lastProp` but not on `nextProp`.
@@ -14804,9 +14828,9 @@ function warnForPropsMutation(propName, element) {
 
   ("production" !== process.env.NODE_ENV ? warning(
     false,
-    'Don\'t set .props.%s of the React component%s. ' +
-    'Instead, specify the correct value when ' +
-    'initially creating the element.%s',
+    'Don\'t set .props.%s of the React component%s. Instead, specify the ' +
+    'correct value when initially creating the element or use ' +
+    'React.cloneElement to make a new element with updated props.%s',
     propName,
     elementInfo,
     ownerInfo
@@ -22747,6 +22771,7 @@ assign(
 function isInternalComponentType(type) {
   return (
     typeof type === 'function' &&
+    typeof type.prototype !== 'undefined' &&
     typeof type.prototype.mountComponent === 'function' &&
     typeof type.prototype.receiveComponent === 'function'
   );
@@ -25342,71 +25367,19 @@ var Application = (function (_React$Component) {
 	_inherits(Application, _React$Component);
 
 	_createClass(Application, {
-		render: {
-			value: function render() {
-				var mappedItems = this.state.items.map(function (value, index) {
-					return React.createElement(
-						"li",
-						{ key: value.id },
-						value.title
-					);
-				});
-
-				return React.createElement(
-					"div",
-					null,
-					React.createElement(Header, null),
-					React.createElement(
-						"h1",
-						null,
-						this.state.title
-					),
-					React.createElement(RouteHandler, null),
-					React.createElement(
-						"p",
-						null,
-						"Dit is de site van Boris, echt waar!"
-					),
-					React.createElement(
-						"a",
-						{ onClick: this._addItem },
-						"Add item"
-					),
-					React.createElement(
-						"ul",
-						null,
-						mappedItems
-					)
-				);
-			}
-		},
 		componentWillMount: {
 			value: function componentWillMount() {
-				PortfolioStore.listen(this.onChange);
-			}
-		},
-		componentDidMount: {
-			value: function componentDidMount() {
-				PortfolioActions.fillItems();
+				PortfolioStore.listen(this.onChange.bind(this));
 			}
 		},
 		componentWillUnmount: {
 			value: function componentWillUnmount() {
-				PortfolioStore.unlisten(this.onChange);
+				PortfolioStore.unlisten(this.onChange.bind(this));
 			}
 		},
 		onChange: {
 			value: function onChange() {
-				this.setState(_getStateFromStores());
-			}
-		},
-		handleDetailedItem: {
-			value: function handleDetailedItem(item) {
-				var detailedItem = item.map(function (a, b) {
-					return React.createElement(PortfolioDetail, { key: a, item: a });
-				});
-
-				return detailedItem;
+				this.setState(_getStateFromStores);
 			}
 		},
 		_changeTitle: {
@@ -25418,21 +25391,21 @@ var Application = (function (_React$Component) {
 			value: function _addItem() {
 				PortfolioActions.addItem();
 			}
-
-			/* constructor(props) {
-   	super(props);
-   	this.state = _getStateFromStores();
-   }
-   	render() {
-   	return (
-   		<div>
-   			<h1>Hai</h1>
-   			<p>Dit is de site van Boris, echt waar!</p>
-   			<a onClick={this._addItem}>Add item</a>
-   		</div>
-   	);
-   } */
-
+		},
+		render: {
+			value: function render() {
+				return React.createElement(
+					"div",
+					null,
+					React.createElement(Header, null),
+					React.createElement(
+						"h1",
+						null,
+						this.state.title
+					),
+					React.createElement(RouteHandler, null)
+				);
+			}
 		}
 	});
 
@@ -25441,7 +25414,7 @@ var Application = (function (_React$Component) {
 
 module.exports = Application;
 
-},{"./actions/PortfolioActions":210,"./components/Header":213,"./stores/PortfolioStore":217,"alt/mixins/ListenerMixin":3,"react":205,"react-router":36}],210:[function(require,module,exports){
+},{"./actions/PortfolioActions":210,"./components/Header":214,"./stores/PortfolioStore":218,"alt/mixins/ListenerMixin":3,"react":205,"react-router":36}],210:[function(require,module,exports){
 "use strict";
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
@@ -25456,7 +25429,22 @@ var PortfolioActions = function PortfolioActions() {
 
 module.exports = alt.createActions(PortfolioActions);
 
-},{"../alt":211}],211:[function(require,module,exports){
+},{"../alt":212}],211:[function(require,module,exports){
+"use strict";
+
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+var alt = require("../alt");
+
+var PortfolioServerActions = function PortfolioServerActions() {
+    _classCallCheck(this, PortfolioServerActions);
+
+    this.generateActions("receivedMessages", "filledItems");
+};
+
+module.exports = alt.createActions(PortfolioServerActions);
+
+},{"../alt":212}],212:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25465,7 +25453,7 @@ var Alt = _interopRequire(require("alt"));
 
 module.exports = new Alt();
 
-},{"alt":2}],212:[function(require,module,exports){
+},{"alt":2}],213:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25524,7 +25512,7 @@ var AboutPage = (function (_React$Component) {
 
 module.exports = AboutPage;
 
-},{"react":205}],213:[function(require,module,exports){
+},{"react":205}],214:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25595,7 +25583,7 @@ var Header = (function (_React$Component) {
 
 module.exports = Header;
 
-},{"react":205}],214:[function(require,module,exports){
+},{"react":205}],215:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25610,18 +25598,61 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 
 var React = _interopRequire(require("react"));
 
+var PortfolioStore = _interopRequire(require("../stores/PortfolioStore"));
+
+var PortfolioActions = _interopRequire(require("../actions/PortfolioActions"));
+
+function _getStateFromStores() {
+    return PortfolioStore.getState();
+}
+
 var PortfolioPage = (function (_React$Component) {
     function PortfolioPage(props) {
         _classCallCheck(this, PortfolioPage);
 
         _get(Object.getPrototypeOf(PortfolioPage.prototype), "constructor", this).call(this, props);
+        this.state = _getStateFromStores();
     }
 
     _inherits(PortfolioPage, _React$Component);
 
     _createClass(PortfolioPage, {
+        componentWillMount: {
+            value: function componentWillMount() {
+                PortfolioStore.listen(this.onChange.bind(this));
+            }
+        },
+        componentDidMount: {
+            value: function componentDidMount() {
+                PortfolioActions.fillItems();
+            }
+        },
+        onChange: {
+            value: function onChange() {
+                this.setState(_getStateFromStores);
+            }
+        },
+        componentWillUnmount: {
+            value: function componentWillUnmount() {
+                PortfolioStore.unlisten(this.onChange.bind(this));
+            }
+        },
         render: {
             value: function render() {
+                var portfolioItems = this.state.items.map(function (value, index) {
+                    return React.createElement(
+                        "li",
+                        { key: value.id },
+                        React.createElement(
+                            "a",
+                            { href: "/item/" + value.permalink },
+                            value.title,
+                            " - ",
+                            value.description.short
+                        )
+                    );
+                });
+
                 return React.createElement(
                     "div",
                     null,
@@ -25633,16 +25664,7 @@ var PortfolioPage = (function (_React$Component) {
                     React.createElement(
                         "ul",
                         null,
-                        React.createElement(
-                            "li",
-                            null,
-                            "Portfolio item"
-                        ),
-                        React.createElement(
-                            "li",
-                            null,
-                            "Portfolio item"
-                        )
+                        portfolioItems
                     )
                 );
             }
@@ -25654,7 +25676,7 @@ var PortfolioPage = (function (_React$Component) {
 
 module.exports = PortfolioPage;
 
-},{"react":205}],215:[function(require,module,exports){
+},{"../actions/PortfolioActions":210,"../stores/PortfolioStore":218,"react":205}],216:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25668,7 +25690,7 @@ module.exports = ReactRouter.create({
     routes: routes
 });
 
-},{"./routes":216,"react-router":36}],216:[function(require,module,exports){
+},{"./routes":217,"react-router":36}],217:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25693,7 +25715,7 @@ module.exports = React.createElement(
     React.createElement(Route, { name: "about", handler: AboutPage })
 );
 
-},{"../Application":209,"../components/AboutPage":212,"../components/PortfolioPage":214,"react":205,"react-router":36}],217:[function(require,module,exports){
+},{"../Application":209,"../components/AboutPage":213,"../components/PortfolioPage":215,"react":205,"react-router":36}],218:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25708,11 +25730,15 @@ var request = _interopRequire(require("superagent"));
 
 var PortfolioActions = _interopRequire(require("../actions/PortfolioActions"));
 
+var PortfolioServerActions = _interopRequire(require("../actions/PortfolioServerActions"));
+
 var PortfolioStore = (function () {
     function PortfolioStore() {
         _classCallCheck(this, PortfolioStore);
 
         this.bindActions(PortfolioActions);
+        this.bindActions(PortfolioServerActions);
+
         this.title = "Portfolio van Boris";
         this.items = [];
     }
@@ -25740,6 +25766,11 @@ var PortfolioStore = (function () {
             value: function onUpdateTitle(title) {
                 this.title = title;
             }
+        },
+        onReceivedMessages: {
+            value: function onReceivedMessages(messages) {
+                this.items = messages;
+            }
         }
     });
 
@@ -25750,4 +25781,26 @@ var PortfolioStore = (function () {
 
 module.exports = alt.createStore(PortfolioStore, "PortfolioStore");
 
-},{"../actions/PortfolioActions":210,"../alt":211,"superagent":206}]},{},[1]);
+},{"../actions/PortfolioActions":210,"../actions/PortfolioServerActions":211,"../alt":212,"superagent":206}],219:[function(require,module,exports){
+"use strict";
+
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+
+var request = _interopRequire(require("superagent"));
+
+var PortfolioServerActions = _interopRequire(require("../actions/PortfolioServerActions"));
+
+var PortfolioWebAPIUtils = {
+
+    getAllItems: function getAllItems() {
+        var items = undefined;
+        request.get("/api/items").end(function (res) {
+            items = res.body;
+            PortfolioServerActions.receivedMessages(items);
+        });
+    }
+};
+
+module.exports = PortfolioWebAPIUtils;
+
+},{"../actions/PortfolioServerActions":211,"superagent":206}]},{},[1]);

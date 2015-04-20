@@ -1,10 +1,13 @@
 import alt from '../alt';
 import request from 'superagent';
 import PortfolioActions from '../actions/PortfolioActions';
+import PortfolioServerActions from '../actions/PortfolioServerActions';
 
 class PortfolioStore {
     constructor() {
         this.bindActions(PortfolioActions);
+        this.bindActions(PortfolioServerActions);
+
         this.title = 'Portfolio van Boris';
         this.items = [];
     }
@@ -33,6 +36,10 @@ class PortfolioStore {
 
     onUpdateTitle(title) {
         this.title = title;
+    }
+
+    onReceivedMessages(messages) {
+        this.items = messages;
     }
 
 };

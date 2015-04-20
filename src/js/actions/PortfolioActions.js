@@ -6,4 +6,4 @@ class PortfolioActions {
     }
 }
 
-module.exports = alt.createActions(PortfolioActions);
+export default alt.createActions(PortfolioActions);

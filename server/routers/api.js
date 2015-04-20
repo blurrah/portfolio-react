@@ -17,10 +17,9 @@ var Portfolio = mongoose.model('Portfolio', portfolioSchema);
 
 exports.items = function(req, res, next) {
     Portfolio.find({}, function(err, items) {
-        res.json(items.reduce(function(itemMap, item) {
-            itemMap[item.id] = item;
-            return itemMap;
-        }, {})).end();
+        res.json(Object.keys(items).map(function(key) {
+            return items[key];
+        })).end();
     });
 };
 
