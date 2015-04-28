@@ -4,6 +4,7 @@ import Header from './components/Header';
 import PortfolioStore from './stores/PortfolioStore';
 import PortfolioActions from './actions/PortfolioActions';
 import { RouteHandler } from 'react-router';
+import Footer from './components/Footer';
 
 function _getStateFromStores() {
 	return PortfolioStore.getState();
@@ -40,7 +41,8 @@ export default class Application extends React.Component {
 		return (
 			<div>
 				<Header />
-				<RouteHandler />
+				<RouteHandler {...this.props} />
+				<Footer />
 			</div>
 		);
 	}

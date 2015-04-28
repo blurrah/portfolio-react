@@ -8,10 +8,10 @@ export default class AboutPage extends React.Component {
     render() {
         return (
             <div>
-                <h3>AboutPage component:</h3>
+                <h3>About</h3>
+                <p>Boris is:</p>
                 <ul>
-                    <li>Cool</li>
-                    <li>Supercool</li>
+                    <li>Boris</li>
                 </ul>
             </div>
         );

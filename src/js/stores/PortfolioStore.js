@@ -42,6 +42,17 @@ class PortfolioStore {
         this.items = messages;
     }
 
+    static getItem(permalink) {
+        let state = this.getState().items;
+        let result;
+        for (let i = 0; i < state.length; i++) {
+            if (state[i].permalink === permalink) {
+                result = state[i];
+            }
+        }
+        return result;
+    }
+
 };
 
 export default alt.createStore(PortfolioStore, 'PortfolioStore');
