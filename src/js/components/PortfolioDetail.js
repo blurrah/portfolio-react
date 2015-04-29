@@ -11,7 +11,7 @@ function _getStateFromStore() {
 export default class PortfolioDetail extends React.Component {
     constructor(props) {
         super(props);
-        this.state = _getStateFromStore().bind(this);
+        this.state = _getStateFromStore();
     }
 
     componentWillMount() {

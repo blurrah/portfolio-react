@@ -1,23 +1,29 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-var React = _interopRequire(require("react"));
+var _React = require('react');
 
-var router = _interopRequire(require("./router/router"));
+var _React2 = _interopRequireWildcard(_React);
 
-var PortfolioWebAPIUtils = _interopRequire(require("./utils/PortfolioWebAPIUtils"));
+var _router = require('./router/router');
 
-PortfolioWebAPIUtils.getAllItems();
+var _router2 = _interopRequireWildcard(_router);
 
-router.run(function (Handler, state) {
-	React.render(React.createElement(Handler, state), document.body);
+var _PortfolioWebAPIUtils = require('./utils/PortfolioWebAPIUtils');
+
+var _PortfolioWebAPIUtils2 = _interopRequireWildcard(_PortfolioWebAPIUtils);
+
+_PortfolioWebAPIUtils2['default'].getAllItems();
+
+_router2['default'].run(function (Handler, state) {
+	_React2['default'].render(_React2['default'].createElement(Handler, state), document.body);
 });
 
 // React.render(<Application />, document.body);
 
-},{"./router/router":217,"./utils/PortfolioWebAPIUtils":220,"react":205}],2:[function(require,module,exports){
+},{"./router/router":219,"./utils/PortfolioWebAPIUtils":222,"react":205}],2:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25328,199 +25334,303 @@ module.exports = function(arr, fn, initial){
   return curr;
 };
 },{}],209:[function(require,module,exports){
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
 
-var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+var _inherits = function (subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
 
-var React = _interopRequire(require("react"));
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
 
-var ListenerMixin = _interopRequire(require("alt/mixins/ListenerMixin"));
+var _React = require('react');
 
-var Header = _interopRequire(require("./components/Header"));
+var _React2 = _interopRequireWildcard(_React);
 
-var PortfolioStore = _interopRequire(require("./stores/PortfolioStore"));
+var _ListenerMixin = require('alt/mixins/ListenerMixin');
 
-var PortfolioActions = _interopRequire(require("./actions/PortfolioActions"));
+var _ListenerMixin2 = _interopRequireWildcard(_ListenerMixin);
 
-var RouteHandler = require("react-router").RouteHandler;
+var _Header = require('./components/Header');
+
+var _Header2 = _interopRequireWildcard(_Header);
+
+var _PortfolioStore = require('./stores/PortfolioStore');
+
+var _PortfolioStore2 = _interopRequireWildcard(_PortfolioStore);
+
+var _PortfolioActions = require('./actions/PortfolioActions');
+
+var _PortfolioActions2 = _interopRequireWildcard(_PortfolioActions);
+
+var _RouteHandler = require('react-router');
+
+var _Footer = require('./components/Footer');
+
+var _Footer2 = _interopRequireWildcard(_Footer);
 
 function _getStateFromStores() {
-	return PortfolioStore.getState();
+	return _PortfolioStore2['default'].getState();
 }
 
 var Application = (function (_React$Component) {
 	function Application(props) {
 		_classCallCheck(this, Application);
 
-		_get(Object.getPrototypeOf(Application.prototype), "constructor", this).call(this, props);
+		_get(Object.getPrototypeOf(Application.prototype), 'constructor', this).call(this, props);
 		this.state = _getStateFromStores();
 	}
 
 	_inherits(Application, _React$Component);
 
-	_createClass(Application, {
-		componentWillMount: {
-			value: function componentWillMount() {
-				PortfolioStore.listen(this.onChange.bind(this));
-			}
-		},
-		componentWillUnmount: {
-			value: function componentWillUnmount() {
-				PortfolioStore.unlisten(this.onChange.bind(this));
-			}
-		},
-		onChange: {
-			value: function onChange() {
-				this.setState(_getStateFromStores);
-			}
-		},
-		_changeTitle: {
-			value: function _changeTitle() {
-				PortfolioActions.updateTitle();
-			}
-		},
-		_addItem: {
-			value: function _addItem() {
-				PortfolioActions.addItem();
-			}
-		},
-		render: {
-			value: function render() {
-				return React.createElement(
-					"div",
-					null,
-					React.createElement(Header, null),
-					React.createElement(RouteHandler, null)
-				);
-			}
+	_createClass(Application, [{
+		key: 'componentWillMount',
+		value: function componentWillMount() {
+			_PortfolioStore2['default'].listen(this.onChange.bind(this));
 		}
-	});
+	}, {
+		key: 'componentWillUnmount',
+		value: function componentWillUnmount() {
+			_PortfolioStore2['default'].unlisten(this.onChange.bind(this));
+		}
+	}, {
+		key: 'onChange',
+		value: function onChange() {
+			this.setState(_getStateFromStores);
+		}
+	}, {
+		key: '_changeTitle',
+		value: function _changeTitle() {
+			_PortfolioActions2['default'].updateTitle();
+		}
+	}, {
+		key: '_addItem',
+		value: function _addItem() {
+			_PortfolioActions2['default'].addItem();
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return _React2['default'].createElement(
+				'div',
+				null,
+				_React2['default'].createElement(_Header2['default'], null),
+				_React2['default'].createElement(_RouteHandler.RouteHandler, this.props),
+				_React2['default'].createElement(_Footer2['default'], null)
+			);
+		}
+	}]);
 
 	return Application;
-})(React.Component);
+})(_React2['default'].Component);
 
-module.exports = Application;
+exports['default'] = Application;
+;
+module.exports = exports['default'];
 
-},{"./actions/PortfolioActions":210,"./components/Header":214,"./stores/PortfolioStore":219,"alt/mixins/ListenerMixin":3,"react":205,"react-router":36}],210:[function(require,module,exports){
-"use strict";
+},{"./actions/PortfolioActions":210,"./components/Footer":214,"./components/Header":215,"./stores/PortfolioStore":221,"alt/mixins/ListenerMixin":3,"react":205,"react-router":36}],210:[function(require,module,exports){
+'use strict';
 
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
 
-var alt = require("../alt");
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+var alt = require('../alt');
 
 var PortfolioActions = function PortfolioActions() {
     _classCallCheck(this, PortfolioActions);
 
-    this.generateActions("updateTitle", "fillItems", "addItem");
+    this.generateActions('updateTitle', 'fillItems', 'addItem');
 };
 
-module.exports = alt.createActions(PortfolioActions);
+exports['default'] = alt.createActions(PortfolioActions);
+module.exports = exports['default'];
 
 },{"../alt":212}],211:[function(require,module,exports){
-"use strict";
+'use strict';
 
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
 
-var alt = require("../alt");
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+var alt = require('../alt');
 
 var PortfolioServerActions = function PortfolioServerActions() {
     _classCallCheck(this, PortfolioServerActions);
 
-    this.generateActions("receivedMessages", "filledItems");
+    this.generateActions('receivedMessages', 'filledItems');
 };
 
-module.exports = alt.createActions(PortfolioServerActions);
+exports['default'] = alt.createActions(PortfolioServerActions);
+module.exports = exports['default'];
 
 },{"../alt":212}],212:[function(require,module,exports){
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-var Alt = _interopRequire(require("alt"));
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-module.exports = new Alt();
+var _Alt = require('alt');
+
+var _Alt2 = _interopRequireWildcard(_Alt);
+
+exports['default'] = new _Alt2['default']();
+module.exports = exports['default'];
 
 },{"alt":2}],213:[function(require,module,exports){
-"use strict";
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
 
-var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+var _inherits = function (subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
 
-var React = _interopRequire(require("react"));
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _React = require('react');
+
+var _React2 = _interopRequireWildcard(_React);
 
 var AboutPage = (function (_React$Component) {
     function AboutPage(props) {
         _classCallCheck(this, AboutPage);
 
-        _get(Object.getPrototypeOf(AboutPage.prototype), "constructor", this).call(this, props);
+        _get(Object.getPrototypeOf(AboutPage.prototype), 'constructor', this).call(this, props);
     }
 
     _inherits(AboutPage, _React$Component);
 
-    _createClass(AboutPage, {
-        render: {
-            value: function render() {
-                return React.createElement(
-                    "div",
+    _createClass(AboutPage, [{
+        key: 'render',
+        value: function render() {
+            return _React2['default'].createElement(
+                'div',
+                null,
+                _React2['default'].createElement(
+                    'h3',
                     null,
-                    React.createElement(
-                        "h3",
+                    'About'
+                ),
+                _React2['default'].createElement(
+                    'p',
+                    null,
+                    'Boris is:'
+                ),
+                _React2['default'].createElement(
+                    'ul',
+                    null,
+                    _React2['default'].createElement(
+                        'li',
                         null,
-                        "AboutPage component:"
-                    ),
-                    React.createElement(
-                        "ul",
-                        null,
-                        React.createElement(
-                            "li",
-                            null,
-                            "Cool"
-                        ),
-                        React.createElement(
-                            "li",
-                            null,
-                            "Supercool"
-                        )
+                        'Boris'
                     )
-                );
-            }
+                )
+            );
         }
-    });
+    }]);
 
     return AboutPage;
-})(React.Component);
+})(_React2['default'].Component);
 
-module.exports = AboutPage;
+exports['default'] = AboutPage;
+module.exports = exports['default'];
 
 },{"react":205}],214:[function(require,module,exports){
 "use strict";
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
-
-var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
 
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
-var React = _interopRequire(require("react"));
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _React = require("react");
+
+var _React2 = _interopRequireWildcard(_React);
+
+var Footer = (function (_React$Component) {
+    function Footer(props) {
+        _classCallCheck(this, Footer);
+
+        _get(Object.getPrototypeOf(Footer.prototype), "constructor", this).call(this, props);
+    }
+
+    _inherits(Footer, _React$Component);
+
+    _createClass(Footer, [{
+        key: "render",
+        value: function render() {
+
+            return _React2["default"].createElement(
+                "footer",
+                null,
+                _React2["default"].createElement(
+                    "p",
+                    null,
+                    "Site is gemaakt met ReactJS, source code is te vinden op ",
+                    _React2["default"].createElement(
+                        "a",
+                        { href: "http://github.com/blurrah/portfolio-react" },
+                        "GitHub"
+                    )
+                )
+            );
+        }
+    }]);
+
+    return Footer;
+})(_React2["default"].Component);
+
+exports["default"] = Footer;
+module.exports = exports["default"];
+
+},{"react":205}],215:[function(require,module,exports){
+"use strict";
+
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { "default": obj }; };
+
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _React = require("react");
+
+var _React2 = _interopRequireWildcard(_React);
 
 var Header = (function (_React$Component) {
 	function Header(props) {
@@ -25531,320 +25641,487 @@ var Header = (function (_React$Component) {
 
 	_inherits(Header, _React$Component);
 
-	_createClass(Header, {
-		render: {
-			value: function render() {
-				return React.createElement(
-					"header",
-					null,
-					React.createElement(
-						"nav",
-						{ className: "navbar navbar-default", role: "navigation" },
-						React.createElement(
-							"div",
-							{ className: "container" },
-							React.createElement(
-								"ul",
-								{ className: "nav navbar-nav" },
-								React.createElement(
-									"li",
-									null,
-									React.createElement(
-										"a",
-										{ href: "/" },
-										"Home"
-									)
-								),
-								React.createElement(
-									"li",
-									null,
-									React.createElement(
-										"a",
-										{ href: "/about" },
-										"About"
-									)
-								),
-								React.createElement(
-									"li",
-									null,
-									React.createElement(
-										"a",
-										{ href: "http://github.com/blurrah" },
-										"Github"
-									)
+	_createClass(Header, [{
+		key: "render",
+		value: function render() {
+			return _React2["default"].createElement(
+				"header",
+				null,
+				_React2["default"].createElement(
+					"nav",
+					{ className: "navbar navbar-default", role: "navigation" },
+					_React2["default"].createElement(
+						"div",
+						{ className: "container" },
+						_React2["default"].createElement(
+							"ul",
+							{ className: "nav navbar-nav" },
+							_React2["default"].createElement(
+								"li",
+								null,
+								_React2["default"].createElement(
+									"a",
+									{ href: "/" },
+									"Home"
+								)
+							),
+							_React2["default"].createElement(
+								"li",
+								null,
+								_React2["default"].createElement(
+									"a",
+									{ href: "/about" },
+									"About"
+								)
+							),
+							_React2["default"].createElement(
+								"li",
+								null,
+								_React2["default"].createElement(
+									"a",
+									{ href: "http://github.com/blurrah" },
+									"Github"
 								)
 							)
 						)
 					)
-				);
-			}
+				)
+			);
 		}
-	});
+	}]);
 
 	return Header;
-})(React.Component);
+})(_React2["default"].Component);
 
-module.exports = Header;
+exports["default"] = Header;
+module.exports = exports["default"];
 
-},{"react":205}],215:[function(require,module,exports){
-"use strict";
+},{"react":205}],216:[function(require,module,exports){
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
 
-var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+var _inherits = function (subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
 
-var React = _interopRequire(require("react"));
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _React = require('react');
+
+var _React2 = _interopRequireWildcard(_React);
+
+var _PortfolioStore = require('../stores/PortfolioStore');
+
+var _PortfolioStore2 = _interopRequireWildcard(_PortfolioStore);
+
+function _getStateFromStore() {
+    var permalink = this.props.params.itemPermalink;
+    return {
+        item: _PortfolioStore2['default'].getItem(permalink)
+    };
+};
+
+var PortfolioDetail = (function (_React$Component) {
+    function PortfolioDetail(props) {
+        _classCallCheck(this, PortfolioDetail);
+
+        _get(Object.getPrototypeOf(PortfolioDetail.prototype), 'constructor', this).call(this, props);
+        this.state = _getStateFromStore();
+    }
+
+    _inherits(PortfolioDetail, _React$Component);
+
+    _createClass(PortfolioDetail, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            _PortfolioStore2['default'].listen(this.onChange.bind(this));
+        }
+    }, {
+        key: 'onChange',
+        value: function onChange() {
+            this.setState(_getStateFromStore.bind(this));
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            _PortfolioStore2['default'].unlisten(this.onChange.bind(this));
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps() {
+            this.setState(_getStateFromStore.bind(this));
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            /*let tags = this.props.item.tags.map((value, index) => {
+                return <li key={value}>{value}</li>;
+            });
+             let images = this.props.item.images.map((value, index) => {
+                return <img src={'/img/item/' + value + '.png'} />
+            }); */
+
+            return _React2['default'].createElement(
+                'article',
+                null,
+                _React2['default'].createElement(
+                    'div',
+                    { className: 'inner' },
+                    _React2['default'].createElement(
+                        'h3',
+                        null,
+                        'Detail van ',
+                        this.state.item.title
+                    )
+                )
+            );
+        }
+    }]);
+
+    return PortfolioDetail;
+})(_React2['default'].Component);
+
+exports['default'] = PortfolioDetail;
+
+PortfolioDetail.propTypes = {
+    params: _React2['default'].PropTypes.object
+};
+module.exports = exports['default'];
+
+},{"../stores/PortfolioStore":221,"react":205}],217:[function(require,module,exports){
+'use strict';
+
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
+
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _inherits = function (subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _React = require('react');
+
+var _React2 = _interopRequireWildcard(_React);
 
 var PortfolioItem = (function (_React$Component) {
     function PortfolioItem(props) {
         _classCallCheck(this, PortfolioItem);
 
-        _get(Object.getPrototypeOf(PortfolioItem.prototype), "constructor", this).call(this, props);
+        _get(Object.getPrototypeOf(PortfolioItem.prototype), 'constructor', this).call(this, props);
     }
 
     _inherits(PortfolioItem, _React$Component);
 
-    _createClass(PortfolioItem, {
-        render: {
-            value: function render() {
-                return React.createElement(
-                    "article",
-                    null,
-                    React.createElement(
-                        "div",
-                        { "class": "inner" },
-                        React.createElement(
-                            "h3",
-                            null,
+    _createClass(PortfolioItem, [{
+        key: 'render',
+        value: function render() {
+            return _React2['default'].createElement(
+                'article',
+                null,
+                _React2['default'].createElement(
+                    'div',
+                    { className: 'inner' },
+                    _React2['default'].createElement(
+                        'h3',
+                        null,
+                        _React2['default'].createElement(
+                            'a',
+                            { href: '/portfolio/' + this.props.item.permalink },
                             this.props.item.title
-                        ),
-                        React.createElement(
-                            "p",
-                            null,
-                            this.props.item.description.short
                         )
+                    ),
+                    _React2['default'].createElement(
+                        'p',
+                        null,
+                        this.props.item.description.short
                     )
-                );
-            }
+                )
+            );
         }
-    });
+    }]);
 
     return PortfolioItem;
-})(React.Component);
+})(_React2['default'].Component);
 
-module.exports = PortfolioItem;
+exports['default'] = PortfolioItem;
 
-},{"react":205}],216:[function(require,module,exports){
-"use strict";
+PortfolioItem.propTypes = {
+    item: _React2['default'].PropTypes.object
+};
+module.exports = exports['default'];
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+},{"react":205}],218:[function(require,module,exports){
+'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
 
-var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-var React = _interopRequire(require("react"));
+var _inherits = function (subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
 
-var PortfolioStore = _interopRequire(require("../stores/PortfolioStore"));
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
 
-var PortfolioActions = _interopRequire(require("../actions/PortfolioActions"));
+var _React = require('react');
 
-var PortfolioItem = _interopRequire(require("./PortfolioItem"));
+var _React2 = _interopRequireWildcard(_React);
+
+var _PortfolioStore = require('../stores/PortfolioStore');
+
+var _PortfolioStore2 = _interopRequireWildcard(_PortfolioStore);
+
+var _PortfolioActions = require('../actions/PortfolioActions');
+
+var _PortfolioActions2 = _interopRequireWildcard(_PortfolioActions);
+
+var _PortfolioItem = require('./PortfolioItem');
+
+var _PortfolioItem2 = _interopRequireWildcard(_PortfolioItem);
+
+var _RouteHandler = require('react-router');
 
 function _getStateFromStores() {
-    return PortfolioStore.getState();
+    return _PortfolioStore2['default'].getState();
 }
 
 var PortfolioPage = (function (_React$Component) {
     function PortfolioPage(props) {
         _classCallCheck(this, PortfolioPage);
 
-        _get(Object.getPrototypeOf(PortfolioPage.prototype), "constructor", this).call(this, props);
+        _get(Object.getPrototypeOf(PortfolioPage.prototype), 'constructor', this).call(this, props);
         this.state = _getStateFromStores();
     }
 
     _inherits(PortfolioPage, _React$Component);
 
-    _createClass(PortfolioPage, {
-        componentWillMount: {
-            value: function componentWillMount() {
-                PortfolioStore.listen(this.onChange.bind(this));
-            }
-        },
-        componentDidMount: {
-            value: function componentDidMount() {
-                PortfolioActions.fillItems();
-            }
-        },
-        onChange: {
-            value: function onChange() {
-                this.setState(_getStateFromStores);
-            }
-        },
-        componentWillUnmount: {
-            value: function componentWillUnmount() {
-                PortfolioStore.unlisten(this.onChange.bind(this));
-            }
-        },
-        render: {
-            value: function render() {
-                var portfolioItems = this.state.items.map(function (value, index) {
-                    return React.createElement(PortfolioItem, { key: value.id, item: value });
-                });
-
-                return React.createElement(
-                    "div",
-                    null,
-                    React.createElement(
-                        "ul",
-                        null,
-                        portfolioItems
-                    )
-                );
-            }
+    _createClass(PortfolioPage, [{
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            _PortfolioStore2['default'].listen(this.onChange.bind(this));
         }
-    });
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            _PortfolioActions2['default'].fillItems();
+        }
+    }, {
+        key: 'onChange',
+        value: function onChange() {
+            this.setState(_getStateFromStores);
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            _PortfolioStore2['default'].unlisten(this.onChange.bind(this));
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var portfolioItems = this.state.items.map(function (value, index) {
+                return _React2['default'].createElement(_PortfolioItem2['default'], { key: value.id, item: value });
+            });
+
+            return _React2['default'].createElement(
+                'div',
+                null,
+                _React2['default'].createElement(_RouteHandler.RouteHandler, this.props),
+                _React2['default'].createElement(
+                    'ul',
+                    null,
+                    portfolioItems
+                )
+            );
+        }
+    }]);
 
     return PortfolioPage;
-})(React.Component);
+})(_React2['default'].Component);
 
-module.exports = PortfolioPage;
+exports['default'] = PortfolioPage;
+module.exports = exports['default'];
 
-},{"../actions/PortfolioActions":210,"../stores/PortfolioStore":219,"./PortfolioItem":215,"react":205}],217:[function(require,module,exports){
-"use strict";
+},{"../actions/PortfolioActions":210,"../stores/PortfolioStore":221,"./PortfolioItem":217,"react":205,"react-router":36}],219:[function(require,module,exports){
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-var ReactRouter = _interopRequire(require("react-router"));
-
-var routes = _interopRequire(require("./routes"));
-
-module.exports = ReactRouter.create({
-    location: ReactRouter.HistoryLocation,
-    routes: routes
+Object.defineProperty(exports, '__esModule', {
+    value: true
 });
 
-},{"./routes":218,"react-router":36}],218:[function(require,module,exports){
-"use strict";
+var _ReactRouter = require('react-router');
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var _ReactRouter2 = _interopRequireWildcard(_ReactRouter);
 
-var React = _interopRequire(require("react"));
+var _routes = require('./routes');
 
-var _reactRouter = require("react-router");
+var _routes2 = _interopRequireWildcard(_routes);
 
-var Route = _reactRouter.Route;
-var DefaultRoute = _reactRouter.DefaultRoute;
+exports['default'] = _ReactRouter2['default'].create({
+    location: _ReactRouter2['default'].HistoryLocation,
+    routes: _routes2['default']
+});
+module.exports = exports['default'];
 
-var Application = _interopRequire(require("../Application"));
+},{"./routes":220,"react-router":36}],220:[function(require,module,exports){
+'use strict';
 
-var PortfolioPage = _interopRequire(require("../components/PortfolioPage"));
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-var AboutPage = _interopRequire(require("../components/AboutPage"));
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
 
-module.exports = React.createElement(
-    Route,
-    { name: "home", path: "/", handler: Application },
-    React.createElement(DefaultRoute, { name: "PortfolioPage", handler: PortfolioPage }),
-    React.createElement(Route, { name: "about", handler: AboutPage })
+var _React = require('react');
+
+var _React2 = _interopRequireWildcard(_React);
+
+var _Route$DefaultRoute = require('react-router');
+
+var _Application = require('../Application');
+
+var _Application2 = _interopRequireWildcard(_Application);
+
+var _PortfolioPage = require('../components/PortfolioPage');
+
+var _PortfolioPage2 = _interopRequireWildcard(_PortfolioPage);
+
+var _AboutPage = require('../components/AboutPage');
+
+var _AboutPage2 = _interopRequireWildcard(_AboutPage);
+
+var _PortfolioDetail = require('../components/PortfolioDetail');
+
+var _PortfolioDetail2 = _interopRequireWildcard(_PortfolioDetail);
+
+exports['default'] = _React2['default'].createElement(
+    _Route$DefaultRoute.Route,
+    { name: 'home', path: '/', handler: _Application2['default'] },
+    _React2['default'].createElement(_Route$DefaultRoute.DefaultRoute, { name: 'PortfolioPage', handler: _PortfolioPage2['default'] }),
+    _React2['default'].createElement(_Route$DefaultRoute.Route, { name: 'about', handler: _AboutPage2['default'] }),
+    _React2['default'].createElement(
+        _Route$DefaultRoute.Route,
+        { name: 'PortfolioPager', path: '/portfolio', handler: _PortfolioPage2['default'] },
+        _React2['default'].createElement(_Route$DefaultRoute.Route, { name: 'PortfolioDetail', path: ':itemPermalink', handler: _PortfolioDetail2['default'] })
+    )
 );
+module.exports = exports['default'];
 
-},{"../Application":209,"../components/AboutPage":213,"../components/PortfolioPage":216,"react":205,"react-router":36}],219:[function(require,module,exports){
-"use strict";
+},{"../Application":209,"../components/AboutPage":213,"../components/PortfolioDetail":216,"../components/PortfolioPage":218,"react":205,"react-router":36}],221:[function(require,module,exports){
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } };
 
-var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var alt = _interopRequire(require("../alt"));
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
 
-var request = _interopRequire(require("superagent"));
+var _alt = require('../alt');
 
-var PortfolioActions = _interopRequire(require("../actions/PortfolioActions"));
+var _alt2 = _interopRequireWildcard(_alt);
 
-var PortfolioServerActions = _interopRequire(require("../actions/PortfolioServerActions"));
+var _PortfolioActions = require('../actions/PortfolioActions');
+
+var _PortfolioActions2 = _interopRequireWildcard(_PortfolioActions);
+
+var _PortfolioServerActions = require('../actions/PortfolioServerActions');
+
+var _PortfolioServerActions2 = _interopRequireWildcard(_PortfolioServerActions);
 
 var PortfolioStore = (function () {
     function PortfolioStore() {
         _classCallCheck(this, PortfolioStore);
 
-        this.bindActions(PortfolioActions);
-        this.bindActions(PortfolioServerActions);
+        this.bindActions(_PortfolioActions2['default']);
+        this.bindActions(_PortfolioServerActions2['default']);
 
-        this.title = "Portfolio van Boris";
+        this.title = 'Portfolio van Boris';
         this.items = [];
     }
 
-    _createClass(PortfolioStore, {
-        onFillItems: {
-            value: function onFillItems() {
-                request.get("/api/items").end((function (res) {
-                    this.items[0] = res.body[0];
-                }).bind(this));
-            }
-        },
-        onAddItem: {
-            value: function onAddItem(item) {
-                request.post("/api/insert/").send({ id: 0, title: "Paddle up", description: { short: "shortdesc", long: "longdesc" }, tags: ["unity3d", "js"], images: [0, 1], permalink: "paddle-up" }).set("Accept", "application/json").end(function (res) {
-                    if (res.ok) {
-                        alert("item adden werkt!");
-                    } else {
-                        alert("item adden faalt..");
-                    }
-                });
-            }
-        },
-        onUpdateTitle: {
-            value: function onUpdateTitle(title) {
-                this.title = title;
-            }
-        },
-        onReceivedMessages: {
-            value: function onReceivedMessages(messages) {
-                this.items = messages;
-            }
+    _createClass(PortfolioStore, [{
+        key: 'onUpdateTitle',
+        value: function onUpdateTitle(title) {
+            this.title = title;
         }
-    });
+    }, {
+        key: 'onReceivedMessages',
+        value: function onReceivedMessages(messages) {
+            this.items = messages;
+        }
+    }], [{
+        key: 'getItem',
+        value: function getItem(permalink) {
+            var state = this.getState().items;
+            var result = undefined;
+            for (var i = 0; i < state.length; i++) {
+                if (state[i].permalink === permalink) {
+                    result = state[i];
+                }
+            }
+            return result;
+        }
+    }]);
 
     return PortfolioStore;
 })();
 
 ;
 
-module.exports = alt.createStore(PortfolioStore, "PortfolioStore");
+exports['default'] = _alt2['default'].createStore(PortfolioStore, 'PortfolioStore');
+module.exports = exports['default'];
 
-},{"../actions/PortfolioActions":210,"../actions/PortfolioServerActions":211,"../alt":212,"superagent":206}],220:[function(require,module,exports){
-"use strict";
+},{"../actions/PortfolioActions":210,"../actions/PortfolioServerActions":211,"../alt":212}],222:[function(require,module,exports){
+'use strict';
 
-var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+var _interopRequireWildcard = function (obj) { return obj && obj.__esModule ? obj : { 'default': obj }; };
 
-var request = _interopRequire(require("superagent"));
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
 
-var PortfolioServerActions = _interopRequire(require("../actions/PortfolioServerActions"));
+var _request = require('superagent');
+
+var _request2 = _interopRequireWildcard(_request);
+
+var _PortfolioServerActions = require('../actions/PortfolioServerActions');
+
+var _PortfolioServerActions2 = _interopRequireWildcard(_PortfolioServerActions);
 
 var PortfolioWebAPIUtils = {
 
     getAllItems: function getAllItems() {
         var items = undefined;
-        request.get("/api/items").end(function (res) {
+        _request2['default'].get('/api/items').end(function (res) {
             items = res.body;
-            PortfolioServerActions.receivedMessages(items);
+            _PortfolioServerActions2['default'].receivedMessages(items);
         });
     }
 };
 
-module.exports = PortfolioWebAPIUtils;
+exports['default'] = PortfolioWebAPIUtils;
+module.exports = exports['default'];
 
 },{"../actions/PortfolioServerActions":211,"superagent":206}]},{},[1]);
