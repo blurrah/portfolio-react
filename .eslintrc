@@ -4,7 +4,7 @@
         "jsx": true,
         "classes": true,
         "arrowFunctions": true,
-        "sourceType": "module"
+        "sourceType": "modules"
     },
     "rules": {
         "quotes": [2, "single"]

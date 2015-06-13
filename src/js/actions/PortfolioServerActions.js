@@ -1,4 +1,4 @@
-const alt = require('../alt');
+import alt from '../alt';
 
 class PortfolioServerActions {
     constructor() {

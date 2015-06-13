@@ -1,5 +1,5 @@
 import React from 'react';
-import PortfolioStore from '../stores/PortfolioStore';
+import PortfolioStore from '../../../stores/PortfolioStore';
 
 function _getStateFromStore(permalink) {
     return {
@@ -7,7 +7,7 @@ function _getStateFromStore(permalink) {
     };
 };
 
-export default class PortfolioDetail extends React.Component {
+export default class PortfolioDetailPage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -47,6 +47,6 @@ export default class PortfolioDetail extends React.Component {
     }
 }
 
- PortfolioDetail.contextTypes = {
+ PortfolioDetailPage.contextTypes = {
     router: React.PropTypes.func.isRequired
 };

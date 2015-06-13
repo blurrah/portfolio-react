@@ -1,12 +1,14 @@
-var gulp = require('gulp'),
-	browserify = require('browserify'),
-	source = require('vinyl-source-stream'),
-	plumber = require('gulp-plumber'),
-	sass = require('gulp-sass'),
-	autoprefixer = require('gulp-autoprefixer'),
-	sourcemaps = require('gulp-sourcemaps');
+import gulp from 'gulp';
+import browserify from 'browserify';
+import source from 'vinyl-source-stream';
+import plumber from 'gulp-plumber';
+import sass from 'gulp-sass';
+import autoprefixer from 'gulp-autoprefixer';
+import sourcemaps from 'gulp-sourcemaps';
+import {exec} from 'child_process';
+import {task} from 'gulp-shell';
 
-var config = {
+const config = {
 	scss: {
 		src: 'src/scss/*.scss',
 		dest: 'dist/css/style.css'
@@ -16,7 +18,7 @@ var config = {
 		dest: 'dist'
 	},
 	js: {
-		src: 'src/js/*',
+		src: ['src/js/*', 'src/js/**/*'],
 		dest: 'dist/js'
 	}
 };
@@ -37,6 +39,7 @@ gulp.task('browserify', function() {
 		.pipe(source('main.js'))
 		.pipe(gulp.dest('dist/js'));
 });
+
 
 gulp.task('html', function() {
 	return gulp.src('src/*.html')

@@ -1,16 +1,16 @@
 import React from 'react';
 import { Route, DefaultRoute } from 'react-router';
 import Application from '../Application';
-import PortfolioPage from '../components/PortfolioPage';
-import AboutPage from '../components/AboutPage';
-import PortfolioDetail from '../components/PortfolioDetail';
+
+// Pages
+import IndexPage from '../components/Pages/Index/IndexPage';
+import AboutPage from '../components/Pages/About/AboutPage';
+import PortfolioDetailPage from '../components/Pages/PortfolioDetail/PortfolioDetailPage';
 
 export default (
     <Route name="home" path='/' handler={Application}>
-        <DefaultRoute name="PortfolioPage" handler={PortfolioPage} />
+        <DefaultRoute name="IndexPage" handler={IndexPage} />
         <Route name="about" handler={AboutPage} />
-        <Route name="PortfolioPager" path="/portfolio" handler={PortfolioPage}>
-            <Route name="PortfolioDetail" path=":itemPermalink" handler={PortfolioDetail} />
-        </Route>
+        <Route path="portfolio/:itemPermalink" handler={PortfolioDetailPage} />
     </Route>
 );

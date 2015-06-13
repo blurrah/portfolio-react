@@ -1,10 +1,13 @@
 import React from 'react';
-import ListenerMixin from 'alt/mixins/ListenerMixin';
-import Header from './components/Header';
+import { RouteHandler } from 'react-router';
+
+// Flux (alt)
 import PortfolioStore from './stores/PortfolioStore';
 import PortfolioActions from './actions/PortfolioActions';
-import { RouteHandler } from 'react-router';
-import Footer from './components/Footer';
+
+// Reusable footer and header
+import Footer from './components/Reusables/Footer';
+import Header from './components/Reusables/Header';
 
 function _getStateFromStores() {
 	return PortfolioStore.getState();
