@@ -1,12 +1,11 @@
 import gulp from 'gulp';
 import browserify from 'browserify';
 import source from 'vinyl-source-stream';
-import plumber from 'gulp-plumber';
-import sass from 'gulp-sass';
-import autoprefixer from 'gulp-autoprefixer';
-import sourcemaps from 'gulp-sourcemaps';
+import gulpLoadPlugins from 'gulp-load-plugins';
 import {exec} from 'child_process';
 import {task} from 'gulp-shell';
+
+const $ = gulpLoadPlugins();
 
 const config = {
 	scss: {
@@ -23,15 +22,11 @@ const config = {
 	}
 };
 
-gulp.task('browserify', function() {
-	var bundler = browserify({
+gulp.task('browserify', () => {
+	let bundler = browserify({
 		debug: false,
-		entries: [
-			'./src/js/main.js'
-		],
-		paths: [
-			'./src/js'
-		]
+		entries: ['./src/js/main.js'],
+		paths: ['./src/js']
 	});
 
 	return bundler
@@ -41,21 +36,21 @@ gulp.task('browserify', function() {
 });
 
 
-gulp.task('html', function() {
+gulp.task('html', () => {
 	return gulp.src('src/*.html')
-		.pipe(plumber())
+		.pipe($.plumber())
 		.pipe(gulp.dest('dist'));
 });
 
-gulp.task('scss', function() {
+gulp.task('scss', () => {
 		return gulp.src('src/scss/*.scss')
-						.pipe(sourcemaps.init())
-						.pipe(sass())
-						.pipe(autoprefixer({browsers: ['last 2 version']}))
-						.pipe(gulp.dest('dist/css'));
+			.pipe($.sourcemaps.init())
+			.pipe($.sass())
+			.pipe($.autoprefixer({browsers: ['last 2 version']}))
+			.pipe(gulp.dest('dist/css'));
 });
 
-gulp.task('watch', ['build'], function(callback) {
+gulp.task('watch', ['build'], (callback) => {
 	gulp.watch(config.scss.src, ['scss']);
 	gulp.watch(config.html.src, ['html']);
 	gulp.watch(config.js.src, ['browserify']);
