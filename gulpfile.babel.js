@@ -43,11 +43,11 @@ gulp.task('html', () => {
 });
 
 gulp.task('scss', () => {
-		return gulp.src('src/scss/*.scss')
-			.pipe($.sourcemaps.init())
-			.pipe($.sass())
-			.pipe($.autoprefixer({browsers: ['last 2 version']}))
-			.pipe(gulp.dest('dist/css'));
+	return gulp.src('src/scss/*.scss')
+		.pipe($.sourcemaps.init())
+		.pipe($.sass())
+		.pipe($.autoprefixer({browsers: ['last 2 version']}))
+		.pipe(gulp.dest('dist/css'));
 });
 
 gulp.task('watch', ['build'], (callback) => {
