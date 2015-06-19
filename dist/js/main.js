@@ -15,8 +15,6 @@ router.run(function (Handler, state) {
 	React.render(React.createElement(Handler, state), document.getElementById("application"));
 });
 
-// React.render(<Application />, document.body);
-
 },{"./router/router":218,"./utils/PortfolioWebAPIUtils":221,"react":203}],2:[function(require,module,exports){
 "use strict";
 
@@ -25930,7 +25928,7 @@ var PortfolioDetailPage = _interopRequire(require("../components/Pages/Portfolio
 
 module.exports = React.createElement(
     Route,
-    { location: "history", name: "home", path: "/", handler: Application },
+    { name: "home", path: "/", handler: Application },
     React.createElement(DefaultRoute, { name: "IndexPage", handler: IndexPage }),
     React.createElement(Route, { name: "about", handler: AboutPage }),
     React.createElement(Route, { name: "portfolio", path: "portfolio/:itemPermalink", handler: PortfolioDetailPage })

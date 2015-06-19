@@ -45,3 +45,10 @@ exports.insert = function(req, res, next) {
         });
     });
 };
+
+exports.index = function(req, res, next) {
+    Portfolio.find({}, function(err, items) {
+        res.locals.data = {PortfolioStore: {items: items}}
+        next();
+    });
+}

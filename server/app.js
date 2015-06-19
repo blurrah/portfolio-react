@@ -1,11 +1,26 @@
-var express = require('express'),
-    path = require('path'),
-    bodyParser = require('body-parser'),
-    apiRouter = require('./routers/api');
+/* eslint-disable no-undef */
+require('babel/register')({
+    blacklist: []
+});
+
+var express = require('express');
+var path = require('path');
+var bodyParser = require('body-parser');
+var React = require('react/addons');
+var Router = require('react-router');
+var Iso = require('iso');
+
+var apiRouter = require('./routers/api');
+var routes = require('../src/js/router/routes');
+var alt = require('../src/js/alt');
 
 var app = express();
 
+//require('node-jsx').install({harmony: true});
+
 app.set('port', process.env.PORT || 1337);
+app.set('views', path.join(__dirname + '/views'));
+app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -23,9 +38,20 @@ app.get('/api/items/', apiRouter.items);
 app.get('/api/item/:id/', apiRouter.item);
 app.post('/api/insert/', apiRouter.insert);
 
-// Wildcard URL for the website
-app.get('*', function(req, res) {
-        res.sendFile(path.resolve(__dirname + '/../dist/index.html'));
+app.get('*', apiRouter.index);
+
+// Isomorphic React + Flux middleware
+app.use(function (req, res) {
+    alt.bootstrap(JSON.stringify(res.locals.data || {}));
+
+    var iso = new Iso();
+
+    Router.run(routes, req.url, function(Handler) {
+        var content = React.renderToString(React.createElement(Handler));
+
+        iso.add(content, alt.flush());
+        res.render('index.ejs', {reactDom: iso.render() });
+    });
 });
 
 console.log('Portfolio server listening on ' + app.get('port'));

@@ -8,7 +8,7 @@ import AboutPage from '../components/Pages/About/AboutPage';
 import PortfolioDetailPage from '../components/Pages/PortfolioDetail/PortfolioDetailPage';
 
 export default (
-        <Route location="history" name="home" path='/' handler={Application}>
+        <Route name="home" path='/' handler={Application}>
             <DefaultRoute name="IndexPage" handler={IndexPage} />
             <Route name="about" handler={AboutPage} />
             <Route name="portfolio" path="portfolio/:itemPermalink" handler={PortfolioDetailPage} />
