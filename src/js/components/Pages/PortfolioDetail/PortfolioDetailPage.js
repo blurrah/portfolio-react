@@ -1,5 +1,6 @@
 import React from 'react';
 import PortfolioStore from '../../../stores/PortfolioStore';
+import PortfolioDetailItem from './PortfolioDetailItem';
 
 function _getStateFromStore(permalink) {
     return {
@@ -32,9 +33,9 @@ export default class PortfolioDetailPage extends React.Component {
     render() {
         let item;
 
+        // Quick workaround to make sure the component does not get rendered without props
         if (this.state.item) {
-            console.log(this.state.item);
-            item = <h3>{this.state.item.title}</h3>;
+            item = <PortfolioDetailItem item={this.state.item} />;
         }
 
         return (

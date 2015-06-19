@@ -12,12 +12,12 @@ var PortfolioWebAPIUtils = _interopRequire(require("./utils/PortfolioWebAPIUtils
 PortfolioWebAPIUtils.getAllItems();
 
 router.run(function (Handler, state) {
-	React.render(React.createElement(Handler, state), document.body);
+	React.render(React.createElement(Handler, state), document.getElementById("application"));
 });
 
 // React.render(<Application />, document.body);
 
-},{"./router/router":217,"./utils/PortfolioWebAPIUtils":220,"react":203}],2:[function(require,module,exports){
+},{"./router/router":218,"./utils/PortfolioWebAPIUtils":221,"react":203}],2:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25357,7 +25357,7 @@ var Application = (function (_React$Component) {
 
 module.exports = Application;
 
-},{"./actions/PortfolioActions":208,"./components/Reusables/Footer":215,"./components/Reusables/Header":216,"./stores/PortfolioStore":219,"react":203,"react-router":34}],208:[function(require,module,exports){
+},{"./actions/PortfolioActions":208,"./components/Reusables/Footer":216,"./components/Reusables/Header":217,"./stores/PortfolioStore":220,"react":203,"react-router":34}],208:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25447,6 +25447,11 @@ var AboutPage = (function (_React$Component) {
                             "li",
                             null,
                             "Boris"
+                        ),
+                        React.createElement(
+                            "li",
+                            null,
+                            "Certified Boris™"
                         )
                     )
                 );
@@ -25542,7 +25547,7 @@ var IndexPage = (function (_React$Component) {
 
 module.exports = IndexPage;
 
-},{"../../../actions/PortfolioActions":208,"../../../stores/PortfolioStore":219,"./PortfolioItem":213,"react":203,"react-router":34}],213:[function(require,module,exports){
+},{"../../../actions/PortfolioActions":208,"../../../stores/PortfolioStore":220,"./PortfolioItem":213,"react":203,"react-router":34}],213:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25556,6 +25561,8 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== "fun
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
 var React = _interopRequire(require("react"));
+
+var Link = require("react-router").Link;
 
 var PortfolioItem = (function (_React$Component) {
     function PortfolioItem(props) {
@@ -25579,8 +25586,8 @@ var PortfolioItem = (function (_React$Component) {
                             "h3",
                             null,
                             React.createElement(
-                                "a",
-                                { href: "/portfolio/" + this.props.item.permalink },
+                                Link,
+                                { to: "portfolio", params: { itemPermalink: this.props.item.permalink } },
                                 this.props.item.title
                             )
                         ),
@@ -25604,7 +25611,70 @@ PortfolioItem.propTypes = {
     item: React.PropTypes.object
 };
 
-},{"react":203}],214:[function(require,module,exports){
+},{"react":203,"react-router":34}],214:[function(require,module,exports){
+"use strict";
+
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+
+var _createClass = (function () { function defineProperties(target, props) { for (var key in props) { var prop = props[key]; prop.configurable = true; if (prop.value) prop.writable = true; } Object.defineProperties(target, props); } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc && desc.writable) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _inherits = function (subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
+
+var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
+
+var React = _interopRequire(require("react"));
+
+var PortfolioDetailItem = (function (_React$Component) {
+    function PortfolioDetailItem(props) {
+        _classCallCheck(this, PortfolioDetailItem);
+
+        _get(Object.getPrototypeOf(PortfolioDetailItem.prototype), "constructor", this).call(this, props);
+    }
+
+    _inherits(PortfolioDetailItem, _React$Component);
+
+    _createClass(PortfolioDetailItem, {
+        render: {
+            value: function render() {
+                var tags = this.props.item.tags.map(function (v) {
+                    return React.createElement(
+                        "li",
+                        { key: v },
+                        v
+                    );
+                });
+
+                return React.createElement(
+                    "section",
+                    { id: "item" },
+                    React.createElement(
+                        "h3",
+                        null,
+                        this.props.item.title
+                    ),
+                    React.createElement(
+                        "p",
+                        null,
+                        this.props.item.description.long
+                    ),
+                    React.createElement(
+                        "ul",
+                        null,
+                        tags
+                    )
+                );
+            }
+        }
+    });
+
+    return PortfolioDetailItem;
+})(React.Component);
+
+module.exports = PortfolioDetailItem;
+
+},{"react":203}],215:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25620,6 +25690,8 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 var React = _interopRequire(require("react"));
 
 var PortfolioStore = _interopRequire(require("../../../stores/PortfolioStore"));
+
+var PortfolioDetailItem = _interopRequire(require("./PortfolioDetailItem"));
 
 function _getStateFromStore(permalink) {
     return {
@@ -25660,13 +25732,9 @@ var PortfolioDetailPage = (function (_React$Component) {
             value: function render() {
                 var item = undefined;
 
+                // Quick workaround to make sure the component does not get rendered without props
                 if (this.state.item) {
-                    console.log(this.state.item);
-                    item = React.createElement(
-                        "h3",
-                        null,
-                        this.state.item.title
-                    );
+                    item = React.createElement(PortfolioDetailItem, { item: this.state.item });
                 }
 
                 return React.createElement(
@@ -25691,7 +25759,7 @@ PortfolioDetailPage.contextTypes = {
     router: React.PropTypes.func.isRequired
 };
 
-},{"../../../stores/PortfolioStore":219,"react":203}],215:[function(require,module,exports){
+},{"../../../stores/PortfolioStore":220,"./PortfolioDetailItem":214,"react":203}],216:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25742,7 +25810,7 @@ var Footer = (function (_React$Component) {
 
 module.exports = Footer;
 
-},{"react":203}],216:[function(require,module,exports){
+},{"react":203}],217:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25756,6 +25824,8 @@ var _inherits = function (subClass, superClass) { if (typeof superClass !== "fun
 var _classCallCheck = function (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } };
 
 var React = _interopRequire(require("react"));
+
+var Link = require("react-router").Link;
 
 var Header = (function (_React$Component) {
 	function Header(props) {
@@ -25785,8 +25855,8 @@ var Header = (function (_React$Component) {
 									"li",
 									null,
 									React.createElement(
-										"a",
-										{ href: "/" },
+										Link,
+										{ to: "home" },
 										"Home"
 									)
 								),
@@ -25794,9 +25864,9 @@ var Header = (function (_React$Component) {
 									"li",
 									null,
 									React.createElement(
-										"a",
-										{ href: "/about" },
-										"About"
+										Link,
+										{ to: "about" },
+										"About Boris"
 									)
 								),
 								React.createElement(
@@ -25821,7 +25891,7 @@ var Header = (function (_React$Component) {
 
 module.exports = Header;
 
-},{"react":203}],217:[function(require,module,exports){
+},{"react":203,"react-router":34}],218:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25835,7 +25905,7 @@ module.exports = ReactRouter.create({
     routes: routes
 });
 
-},{"./routes":218,"react-router":34}],218:[function(require,module,exports){
+},{"./routes":219,"react-router":34}],219:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25845,6 +25915,7 @@ var React = _interopRequire(require("react"));
 var _reactRouter = require("react-router");
 
 var Route = _reactRouter.Route;
+var Routes = _reactRouter.Routes;
 var DefaultRoute = _reactRouter.DefaultRoute;
 
 var Application = _interopRequire(require("../Application"));
@@ -25859,13 +25930,13 @@ var PortfolioDetailPage = _interopRequire(require("../components/Pages/Portfolio
 
 module.exports = React.createElement(
     Route,
-    { name: "home", path: "/", handler: Application },
+    { location: "history", name: "home", path: "/", handler: Application },
     React.createElement(DefaultRoute, { name: "IndexPage", handler: IndexPage }),
     React.createElement(Route, { name: "about", handler: AboutPage }),
-    React.createElement(Route, { path: "portfolio/:itemPermalink", handler: PortfolioDetailPage })
+    React.createElement(Route, { name: "portfolio", path: "portfolio/:itemPermalink", handler: PortfolioDetailPage })
 );
 
-},{"../Application":207,"../components/Pages/About/AboutPage":211,"../components/Pages/Index/IndexPage":212,"../components/Pages/PortfolioDetail/PortfolioDetailPage":214,"react":203,"react-router":34}],219:[function(require,module,exports){
+},{"../Application":207,"../components/Pages/About/AboutPage":211,"../components/Pages/Index/IndexPage":212,"../components/Pages/PortfolioDetail/PortfolioDetailPage":215,"react":203,"react-router":34}],220:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -25924,7 +25995,7 @@ var PortfolioStore = (function () {
 
 module.exports = alt.createStore(PortfolioStore, "PortfolioStore");
 
-},{"../actions/PortfolioActions":208,"../actions/PortfolioServerActions":209,"../alt":210}],220:[function(require,module,exports){
+},{"../actions/PortfolioActions":208,"../actions/PortfolioServerActions":209,"../alt":210}],221:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };

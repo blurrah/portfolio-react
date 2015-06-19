@@ -12,6 +12,7 @@ export default class AboutPage extends React.Component {
                 <p>Boris is:</p>
                 <ul>
                     <li>Boris</li>
+                    <li>Certified Boris&trade;</li>
                 </ul>
             </div>
         );

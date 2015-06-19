@@ -1,1 +1,8 @@
+// Import bootstrap
 @import "../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap";
+
+// Import variables and mixins
+@import "variables";
+@import "mixins";
+
+// Import components
