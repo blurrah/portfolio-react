@@ -9,6 +9,7 @@ class PortfolioStore {
 
         this.title = 'Portfolio van Boris';
         this.items = [];
+        this.repos = [];
     }
 
     onUpdateTitle(title) {
@@ -22,12 +23,18 @@ class PortfolioStore {
     static getItem(permalink) {
         let state = this.getState().items;
         let result;
+
         for (let i = 0; i < state.length; i++) {
             if (state[i].permalink === permalink) {
                 result = state[i];
             }
         }
         return result;
+    }
+
+    onReceivedRepos(repos) {
+        this.repos = repos;
+        console.log(this.repos[0]);
     }
 
 };

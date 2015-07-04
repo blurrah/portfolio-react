@@ -9,7 +9,7 @@ export default class Footer extends React.Component {
 
         return (
             <footer>
-                <p>Site is gemaakt met ReactJS, source code is te vinden op <a href="http://github.com/blurrah/portfolio-react">GitHub</a></p>
+                <p>&copy; Boris Besemer - 2015</p>
             </footer>
         );
     }

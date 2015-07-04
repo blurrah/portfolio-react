@@ -7,18 +7,22 @@ var React = _interopRequire(require("react"));
 
 var router = _interopRequire(require("./router/router"));
 
-var PortfolioWebAPIUtils = _interopRequire(require("./utils/PortfolioWebAPIUtils"));
-
 var a11y = _interopRequire(require("react-a11y"));
 
+var PortfolioWebAPIUtils = _interopRequire(require("./utils/PortfolioWebAPIUtils"));
+
+var GithubApiUtils = _interopRequire(require("./utils/GithubApiUtils"));
+
 PortfolioWebAPIUtils.getAllItems();
+GithubApiUtils.getAll();
+
 a11y(React);
 
 router.run(function (Handler, state) {
 	React.render(React.createElement(Handler, state), document.getElementById("application"));
 });
 
-},{"./router/router":255,"./utils/PortfolioWebAPIUtils":258,"react":240,"react-a11y":46}],2:[function(require,module,exports){
+},{"./router/router":255,"./utils/GithubApiUtils":258,"./utils/PortfolioWebAPIUtils":259,"react":240,"react-a11y":46}],2:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
@@ -26598,7 +26602,7 @@ var alt = _interopRequire(require("../alt"));
 var PortfolioServerActions = function PortfolioServerActions() {
     _classCallCheck(this, PortfolioServerActions);
 
-    this.generateActions("receivedMessages", "filledItems");
+    this.generateActions("receivedMessages", "filledItems", "receivedRepos");
 };
 
 module.exports = alt.createActions(PortfolioServerActions);
@@ -26740,6 +26744,21 @@ var IndexPage = (function (_React$Component) {
                     return React.createElement(PortfolioItem, { key: value.id, item: value });
                 });
 
+                var gitRepos = this.state.repos.map(function (value) {
+                    return React.createElement(
+                        "li",
+                        { key: value.id },
+                        React.createElement(
+                            "a",
+                            { href: value.html_url },
+                            value.name,
+                            " - ",
+                            value.description,
+                            " "
+                        )
+                    );
+                });
+
                 return React.createElement(
                     "div",
                     null,
@@ -26747,7 +26766,8 @@ var IndexPage = (function (_React$Component) {
                     React.createElement(
                         "ul",
                         null,
-                        portfolioItems
+                        portfolioItems,
+                        gitRepos
                     )
                 );
             }
@@ -27005,12 +27025,7 @@ var Footer = (function (_React$Component) {
                     React.createElement(
                         "p",
                         null,
-                        "Site is gemaakt met ReactJS, source code is te vinden op ",
-                        React.createElement(
-                            "a",
-                            { href: "http://github.com/blurrah/portfolio-react" },
-                            "GitHub"
-                        )
+                        "© Boris Besemer - 2015"
                     )
                 );
             }
@@ -27172,6 +27187,7 @@ var PortfolioStore = (function () {
 
         this.title = "Portfolio van Boris";
         this.items = [];
+        this.repos = [];
     }
 
     _createClass(PortfolioStore, {
@@ -27184,12 +27200,19 @@ var PortfolioStore = (function () {
             value: function onReceivedMessages(messages) {
                 this.items = messages;
             }
+        },
+        onReceivedRepos: {
+            value: function onReceivedRepos(repos) {
+                this.repos = repos;
+                console.log(this.repos[0]);
+            }
         }
     }, {
         getItem: {
             value: function getItem(permalink) {
                 var state = this.getState().items;
                 var result = undefined;
+
                 for (var i = 0; i < state.length; i++) {
                     if (state[i].permalink === permalink) {
                         result = state[i];
@@ -27208,6 +27231,31 @@ var PortfolioStore = (function () {
 module.exports = alt.createStore(PortfolioStore, "PortfolioStore");
 
 },{"../actions/PortfolioActions":245,"../actions/PortfolioServerActions":246,"../alt":247}],258:[function(require,module,exports){
+"use strict";
+
+var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };
+
+var request = _interopRequire(require("superagent"));
+
+var PortfolioServerActions = _interopRequire(require("../actions/PortfolioServerActions"));
+
+var GithubApiUtils = {
+    repoUrl: "https://api.github.com/users/blurrah/repos",
+
+    getAll: function getAll() {
+        var items = undefined;
+
+        request.get(this.repoUrl).end(function (res) {
+            items = res.body;
+
+            PortfolioServerActions.receivedRepos(items);
+        });
+    }
+};
+
+module.exports = GithubApiUtils;
+
+},{"../actions/PortfolioServerActions":246,"superagent":241}],259:[function(require,module,exports){
 "use strict";
 
 var _interopRequire = function (obj) { return obj && obj.__esModule ? obj["default"] : obj; };

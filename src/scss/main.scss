@@ -6,3 +6,7 @@
 @import "mixins";
 
 // Import components
+
+p, a, li {
+    font-family: $font-stack;
+}

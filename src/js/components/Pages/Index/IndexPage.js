@@ -36,11 +36,16 @@ export default class IndexPage extends React.Component {
             return <PortfolioItem key={value.id} item={value} />;
 		});
 
+		let gitRepos = this.state.repos.map((value) => {
+			return <li key={value.id}><a href={value.html_url}>{value.name} - {value.description} </a></li>;
+		})
+
         return (
             <div>
 				<RouteHandler {...this.props} />
                 <ul>
                     {portfolioItems}
+					{gitRepos}
                 </ul>
             </div>
         );
