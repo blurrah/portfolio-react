@@ -1,5 +1,6 @@
 // Initiate and setup Mongoose
 var mongoose = require('mongoose');
+var request = require('request');
 
 mongoose.connect('mongodb://localhost/portfolio');
 var db = mongoose.connection;
@@ -48,7 +49,11 @@ exports.insert = function(req, res, next) {
 
 exports.index = function(req, res, next) {
     Portfolio.find({}, function(err, items) {
-        res.locals.data = {PortfolioStore: {items: items}}
-        next();
+
+        request({url: 'https://api.github.com/users/blurrah/repos', headers: {'User-Agent': 'blurrah'}}, function(err, response, body) {
+            console.log(body);
+            res.locals.data = {PortfolioStore: {items: items, repos: JSON.parse(body)}};
+            next();
+        });
     });
 }
